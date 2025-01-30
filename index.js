@@ -35,6 +35,10 @@ async function run() {
     const database = client.db("Royal-Enfield");
     const bikesData = database.collection("bikesData");
 
+    // my cart collection 
+
+    const myCartsCollection = client.db("Royal-Enfield").collection("carts")
+
 
     //1. database er bikesData gulo collect kore then show in UI.
     
@@ -58,7 +62,32 @@ async function run() {
 
 
 
+  // my_cart_datas:
 
+  // 1. post  the data
+
+  app.post( '/carts' , async(req,res)=>{
+
+    const user = req.body;
+
+    const result = await myCartsCollection.insertOne(user);
+
+    res.send(result);
+  })
+
+
+  app.get( '/carts' , async(req,res)=>{
+     
+    // email filtering and get data as the email
+    const email = req.query.email;
+    
+    const query = {email : email}
+    
+    const result = await myCartsCollection.find(query).toArray();
+
+    res.send(result);
+
+  })
 
 
 

@@ -62,21 +62,26 @@ async function run() {
 
 
 
-  // my_cart_datas:
+  // my_cart_data's:
 
-  // 1. post  the data
+  // 1 . POST DATA ON SERVER | BACKEND
+
 
   app.post( '/carts' , async(req,res)=>{
 
-    const user = req.body;
+    const user = req.body ;
 
-    const result = await myCartsCollection.insertOne(user);
+    const  result = await myCartsCollection.insertOne(user);
 
     res.send(result);
-  })
+   
+  }
+)
+   
 
-
-  app.get( '/carts' , async(req,res)=>{
+  //  2 . GET DATA FROM  SERVER |BACKEND
+  
+app.get( '/carts' , async(req,res)=>{
      
     // email filtering and get data as the email
     const email = req.query.email;
@@ -88,8 +93,6 @@ async function run() {
     res.send(result);
 
   })
-
-
 
 
 

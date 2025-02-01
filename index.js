@@ -11,7 +11,7 @@ app.use(cors());
 
 // copy paste from MongoDb : cluster => connect => driver => 3no.
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@atlascluster.5qhzsjb.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -91,6 +91,20 @@ app.get( '/carts' , async(req,res)=>{
     const result = await myCartsCollection.find(query).toArray();
 
     res.send(result);
+
+  })
+
+  //  delete item from my cart
+  app.delete( '/carts/:id' , async(req,res)=>{
+     
+    const id = req.params.id;
+
+    const query = { _id : new ObjectId(id)  };
+
+    const result = await myCartsCollection.deleteOne(query);
+
+    res.send(result);
+
 
   })
 
